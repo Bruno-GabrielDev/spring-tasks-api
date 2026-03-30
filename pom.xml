@@ -57,18 +57,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.4.0</version>
+                <dependencies>
+                    <!-- Versão do checkstyle compatível com o plugin 3.4.0 -->
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.12.4</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
-                    <!-- Aponta para o arquivo de regras na raiz do projeto -->
                     <configLocation>checkstyle.xml</configLocation>
-                    <!-- Falha o build se houver qualquer violação -->
                     <failsOnError>true</failsOnError>
                     <violationSeverity>error</violationSeverity>
-                    <!-- Inclui apenas o código-fonte principal (ignora testes) -->
                     <sourceDirectories>
                         <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
                     </sourceDirectories>
-                    <!-- Gera relatório HTML em target/site/checkstyle.html -->
                     <outputFile>${project.build.directory}/checkstyle-result.xml</outputFile>
                 </configuration>
                 <executions>
