@@ -3,48 +3,40 @@
         "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
-<!--
-    Configuração Checkstyle para a Tasks API
-    Baseada no estilo Google Java Style Guide (simplificado)
-    Referência: https://checkstyle.sourceforge.io/checks.html
--->
 <module name="Checker">
 
     <property name="severity" value="error"/>
     <property name="fileExtensions" value="java"/>
 
-    <!-- ==========================================
-         REGRAS DE ARQUIVO
-    =========================================== -->
-
     <!-- Arquivo deve terminar com nova linha -->
     <module name="NewlineAtEndOfFile"/>
 
-    <!-- Sem espaços em branco no final das linhas -->
+    <!-- Linha com no maximo 120 caracteres (nivel Checker, nao TreeWalker) -->
+    <module name="LineLength">
+        <property name="max" value="120"/>
+    </module>
+
+    <!-- Sem espacos em branco no final das linhas -->
     <module name="RegexpSingleline">
         <property name="format" value="\s+$"/>
         <property name="minimum" value="0"/>
         <property name="maximum" value="0"/>
-        <property name="message" value="Linha não pode terminar com espaços em branco."/>
+        <property name="message" value="Linha nao pode terminar com espacos em branco."/>
     </module>
 
     <module name="TreeWalker">
 
-        <!-- ==========================================
-             CONVENÇÕES DE NOMENCLATURA
-        =========================================== -->
-
-        <!-- Classes: PascalCase -->
+        <!-- Nomenclatura: Classes PascalCase -->
         <module name="TypeName">
             <property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
         </module>
 
-        <!-- Métodos: camelCase -->
+        <!-- Nomenclatura: metodos camelCase -->
         <module name="MethodName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
         </module>
 
-        <!-- Variáveis locais e parâmetros: camelCase -->
+        <!-- Nomenclatura: variaveis e parametros camelCase -->
         <module name="LocalVariableName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
         </module>
@@ -52,90 +44,69 @@
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
         </module>
 
-        <!-- Constantes: UPPER_SNAKE_CASE -->
+        <!-- Nomenclatura: constantes UPPER_SNAKE_CASE -->
         <module name="ConstantName">
             <property name="format" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
         </module>
 
-        <!-- ==========================================
-             IMPORTS
-        =========================================== -->
-
-        <!-- Proibir imports com wildcard (ex: import java.util.*) -->
+        <!-- Imports: proibir wildcard -->
         <module name="AvoidStarImport"/>
 
-        <!-- Sem imports não utilizados -->
+        <!-- Imports: sem imports nao utilizados -->
         <module name="UnusedImports"/>
 
-        <!-- ==========================================
-             TAMANHO E COMPLEXIDADE
-        =========================================== -->
-
-        <!-- Linha com no máximo 120 caracteres -->
-        <module name="LineLength">
-            <property name="max" value="120"/>
-        </module>
-
-        <!-- Método com no máximo 40 linhas -->
+        <!-- Tamanho: metodo com no maximo 40 linhas -->
         <module name="MethodLength">
             <property name="max" value="40"/>
         </module>
 
-        <!-- Máximo de 7 parâmetros por método -->
+        <!-- Tamanho: maximo de 7 parametros por metodo -->
         <module name="ParameterNumber">
             <property name="max" value="7"/>
         </module>
 
-        <!-- ==========================================
-             BOAS PRÁTICAS
-        =========================================== -->
-
-        <!-- Bloco vazio deve ter comentário justificando -->
+        <!-- Boas praticas: bloco vazio deve ter comentario -->
         <module name="EmptyBlock">
             <property name="option" value="text"/>
         </module>
 
-        <!-- Sempre usar chaves em if/else/for/while -->
+        <!-- Boas praticas: sempre usar chaves em if/else/for/while -->
         <module name="NeedBraces"/>
 
-        <!-- Proibir System.out.println (use logger) -->
+        <!-- Boas praticas: proibir System.out.println -->
         <module name="RegexpSinglelineJava">
             <property name="format" value="System\.out\.print"/>
-            <property name="message" value="Não use System.out.println. Use um Logger."/>
+            <property name="message" value="Nao use System.out.println. Use um Logger."/>
             <property name="ignoreComments" value="true"/>
         </module>
 
-        <!-- Operador ternário: não aninhar -->
+        <!-- Boas praticas: operador ternario nao pode ser aninhado -->
         <module name="NestedTernary"/>
 
-        <!-- Sem modificadores redundantes em interfaces -->
+        <!-- Boas praticas: sem modificadores redundantes -->
         <module name="RedundantModifier"/>
 
-        <!-- ==========================================
-             FORMATAÇÃO / ESPAÇAMENTO
-        =========================================== -->
-
-        <!-- Espaço após vírgulas -->
+        <!-- Formatacao: espaco apos virgulas -->
         <module name="WhitespaceAfter">
             <property name="tokens" value="COMMA, SEMI"/>
         </module>
 
-        <!-- Sem espaço antes de ponto-e-vírgula -->
+        <!-- Formatacao: sem espaco antes de ponto-e-virgula -->
         <module name="NoWhitespaceBefore">
             <property name="tokens" value="SEMI, POST_INC, POST_DEC"/>
         </module>
 
-        <!-- Parênteses: sem espaço interno -->
+        <!-- Formatacao: parenteses sem espaco interno -->
         <module name="ParenPad">
             <property name="option" value="nospace"/>
         </module>
 
-        <!-- Chave de abertura na mesma linha -->
+        <!-- Formatacao: chave de abertura na mesma linha -->
         <module name="LeftCurly">
             <property name="option" value="eol"/>
         </module>
 
-        <!-- Chave de fechamento em linha própria -->
+        <!-- Formatacao: chave de fechamento em linha propria -->
         <module name="RightCurly">
             <property name="option" value="alone"/>
         </module>
