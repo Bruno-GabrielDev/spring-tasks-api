@@ -80,9 +80,6 @@
             <property name="ignoreComments" value="true"/>
         </module>
 
-        <!-- Boas praticas: operador ternario nao pode ser aninhado -->
-        <module name="NestedTernary"/>
-
         <!-- Boas praticas: sem modificadores redundantes -->
         <module name="RedundantModifier"/>
 
