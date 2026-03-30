@@ -1,0 +1,60 @@
+# ============================================================
+# Workflow 3: Análise de Qualidade de Código (Checkstyle)
+#
+# Dispara em todo push ou Pull Request para main/develop.
+# Verifica se o código segue as convenções definidas em
+# checkstyle.xml — nomenclatura, formatação, boas práticas.
+#
+# Se alguma regra for violada, o workflow FALHA e aponta
+# exatamente o arquivo, linha e a regra violada.
+# ============================================================
+
+name: Code Quality - Checkstyle
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+
+  # ----------------------------------------------------------
+  # Job 1: Executar Checkstyle
+  # ----------------------------------------------------------
+  checkstyle:
+    name: Checkstyle Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Executar análise Checkstyle
+        run: mvn checkstyle:check --no-transfer-progress
+
+      # Mesmo se falhar, salva o relatório HTML para consulta
+      - name: Salvar relatório Checkstyle
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: checkstyle-report
+          path: target/site/checkstyle.html
+          retention-days: 7
+
+      # Exibe no log um resumo das violações encontradas
+      - name: Exibir resumo das violações (se houver)
+        if: failure()
+        run: |
+          echo "=============================================="
+          echo " Violações de estilo encontradas!"
+          echo " Verifique o relatório em: target/checkstyle-result.xml"
+          echo "=============================================="
+          cat target/checkstyle-result.xml 2>/dev/null || echo "Relatório XML não encontrado."
