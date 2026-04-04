@@ -4,7 +4,7 @@
 # Executa: compilação + testes unitários + testes de integração
 # ============================================================
 
-name: CI - Build & Test
+name: CI - Build & Test1
 
 on:
   push:
